@@ -2,7 +2,7 @@
 
 set -e
 
-ghtoken=af70a68f311562fc50c88726fc309d6d859bd8da
+ghtoken=add later
 
 cd /home/container
 java -version
