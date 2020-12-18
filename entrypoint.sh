@@ -2,16 +2,27 @@
 
 set -e
 
-ghtoken=add later
+# token for map repo
+ghtoken=TOKEN
 
+# working dir
 cd /home/container
+echo "Checking java version"
 java -version
 
-# clone default server files
+# avicus server repo
+echo "Cloning server repo"
 git clone https://github.com/alexanderjoe/avicus-server.git ./server
 
-# clone maps repo
+# clone maps
+echo "Cloning and unpacking maps repo"
 mkdir server/maps
 curl -H "Authorization: token $ghtoken" -L https://api.github.com/repos/ProfessorUtonium/avicompmc/tarball | tar xz --strip-components=1 -C server/maps
 
-sh server/run.sh
+echo "Successfully unpacked maps"
+
+# server dir
+cd server
+
+# run server
+sh run.sh
