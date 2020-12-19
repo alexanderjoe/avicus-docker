@@ -15,12 +15,17 @@ ENV USER=container HOME=/home/container
 USER container
 
 # workdir setup
-WORKDIR /home/container
-ADD . .
+WORKDIR /home/container/server
+# Dockerfile copy is more just for the records than actual use
+COPY ./Dockerfile /Dockerfile
+COPY ./entrypoint.sh /entrypoint.sh
+
+# Permissions
+USER root
+RUN chown -R container:container /home/container
+USER container
 
 # expose minecraft
 EXPOSE 25565:25565
-
-COPY ./entrypoint.sh /entrypoint.sh
 
 CMD [ "/bin/bash", "/entrypoint.sh" ]
