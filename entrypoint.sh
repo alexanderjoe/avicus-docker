@@ -3,7 +3,17 @@
 set -e
 cd /
 
-# vars
+# pterodactyl compatibility
+if [[ ! -z "${STARTUP}" ]]; then
+    echo "Running pre-start startup..."
+	eval "${STARTUP}"
+	echo "Pre-start complete."
+fi
+
+# vars, import vars
+if [[ -f "/home/container/env.sh" ]]; then
+    source env.sh
+fi
 mapsrepo="ProfessorUtonium/avicompmc"
 if [[ ! -z "${MAPS_REPO}" ]]; then
     mapsrepo="${MAPS_REPO}"
