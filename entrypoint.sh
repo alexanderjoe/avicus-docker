@@ -12,7 +12,8 @@ fi
 
 # vars, import vars
 if [[ -f "/home/container/env.sh" ]]; then
-    source env.sh
+    source /home/container/env.sh
+    echo "Imported environment variables"
 fi
 mapsrepo="ProfessorUtonium/avicompmc"
 if [[ ! -z "${MAPS_REPO}" ]]; then
@@ -21,13 +22,14 @@ if [[ ! -z "${MAPS_REPO}" ]]; then
 fi
 
 # avicus server repo
-echo "Cloning server repo"
 if [ -d /home/container/server ] && [ -f /home/container/server/server.properties ] && [[ -z "${RESET_SERVER}" ]]; then
-    echo "Server is already setup!"
+    echo "Server is already setup, not redownloading!"
 else
+    echo "Cloning server repo"
 	rm -rf /home/container/server
 	mkdir -p /home/container/server
 	git clone https://github.com/alexanderjoe/avicus-server.git /home/container/server
+	echo "Server ready."
 fi
 
 if [[ -z "${MAP_NO_UPDATE}" ]]; then
@@ -47,4 +49,6 @@ else
 fi
 
 # server dir - run
+echo "Running:"
 cd /home/container/server && java -version && /bin/bash run.sh
+echo "Done."
